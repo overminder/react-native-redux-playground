@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
+    "strictNullChecks": true,
+    "skipLibCheck": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "experimentalDecorators": true,
+    "jsx": "react",
+    "baseUrl": "./src-tsx",
+    "outDir": "../.lib-js.out",
+    "paths": {
+      "app/*": [
+        "*"
+      ],
+      "*": [
+        "MUST_PREFIX_WITH_PROJECT_NAME/*"
+      ]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "native-modules",
+    "tools"
+  ]
+}
