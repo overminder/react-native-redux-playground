@@ -4,6 +4,7 @@ import { autobind } from 'core-decorators';
 import * as C from 'app/support/pure-components';
 import * as M from 'app/support/view-models';
 
+import * as A from './actions';
 import * as S from './state';
 import * as R from './reducers';
 
@@ -26,23 +27,23 @@ export class WiredUpCounter extends React.Component<void, S.State> {
   }
 
   incr() {
-    this.setState(R.reduce(this.state, { type: 'COUNTER_INCR' }));
+    this.setState(R.reduce(this.state, { type: A.Kind.CounterIncr }));
   }
 
   decr() {
-    this.setState(R.reduce(this.state, { type: 'COUNTER_DECR' }));
+    this.setState(R.reduce(this.state, { type: A.Kind.CounterDecr }));
   }
 
   push() {
-    this.setState(R.reduce(this.state, { type: 'NAV_PUSH' }));
+    this.setState(R.reduce(this.state, { type: A.Kind.NavPush }));
   }
 
   pop() {
-    this.setState(R.reduce(this.state, { type: 'NAV_POP' }));
+    this.setState(R.reduce(this.state, { type: A.Kind.NavPop }));
   }
 
   useLanguage(x: M.Language) {
-    this.setState(R.reduce(this.state, { type: 'SET_LANGUAGE', lang: x }));
+    this.setState(R.reduce(this.state, { type: A.Kind.SetLanguage, lang: x }));
   }
 
   render() {

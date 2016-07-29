@@ -2,6 +2,6 @@ import {
   AppRegistry,
 } from 'react-native';
 
-import { Main } from './basic-thunk';
+import { Main } from './navigator-experimental-basic';
 
 AppRegistry.registerComponent('Example', () => Main);

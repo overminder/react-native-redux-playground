@@ -12,7 +12,7 @@ function justS(s: S.State) {
   return s;
 }
 
-const WiredUpCounter0 = connect(justS, ActionCreators.all)(C.AnimationlessMultipageCounter);
+const WiredUpCounter0 = connect(justS, ActionCreators.all)(C.MultipageCounter);
 
 export class WiredUpCounter extends React.Component<void, void> {
   private store = createStore(Reducers.reduce);

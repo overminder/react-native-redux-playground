@@ -76,7 +76,7 @@ export interface CounterPage extends Page {
 }
 
 export interface MultipageCounter extends CounterButtons, LanguagePicker {
-  nav: {index: number, routes: CounterPage[]};
+  nav: {index: number, routes: ReadonlyArray<CounterPage>};
   push: () => void;
   pop: () => void;
 }

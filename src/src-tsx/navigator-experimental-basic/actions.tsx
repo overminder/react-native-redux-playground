@@ -1,14 +1,22 @@
 import * as S from './state';
 
+export const enum Kind {
+  CounterIncr,
+  CounterDecr,
+  NavPush,
+  NavPop,
+  SetLanguage,
+}
+
 export type Action = {
-  type: 'COUNTER_INCR',
+  type: Kind.CounterIncr,
 } | {
-  type: 'COUNTER_DECR',
+  type: Kind.CounterDecr,
 } | {
-  type: 'NAV_PUSH',
+  type: Kind.NavPush,
 } | {
-  type: 'NAV_POP',
+  type: Kind.NavPop,
 } | {
-  type: 'SET_LANGUAGE',
+  type: Kind.SetLanguage,
   lang: S.Language,
 };

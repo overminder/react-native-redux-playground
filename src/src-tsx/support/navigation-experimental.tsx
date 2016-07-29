@@ -12,7 +12,7 @@ export declare namespace NE {
   }
 
   export interface State {
-    routes: Route[];
+    routes: ReadonlyArray<Route>;
     index: number;
   }
 
@@ -25,7 +25,7 @@ export declare namespace NE {
 
   export interface TransitionProps {
     scene: Scene;
-    scenes: Scene[];
+    scenes: ReadonlyArray<Scene>;
     navigationState: State;
   }
 

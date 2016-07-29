@@ -8,6 +8,20 @@ export function constant<A>(a: A): () => A {
   return () => a;
 }
 
+export namespace Arrays {
+  export function push<A>(xs: ReadonlyArray<A>, x: A): ReadonlyArray<A> {
+    const ys = xs.slice();
+    ys.push(x);
+    return ys;
+  }
+
+  export function pop<A>(xs: ReadonlyArray<A>): [ReadonlyArray<A>, A] {
+    const ys = xs.slice();
+    const y = ys.pop()!;
+    return [ys, y];
+  }
+}
+
 export type Fold<S, A> = (s: S, a: A) => S;
 
 export namespace Fold {

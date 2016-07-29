@@ -1,4 +1,4 @@
-import { Lens, copyWith, Fold } from 'app/support/util';
+import * as U from 'app/support/util';
 import * as A from './actions';
 import * as S from './state';
 
@@ -6,10 +6,10 @@ function reduceCounter(s: S.Page, a: A.Action) {
   s = s || S.defaultPage;
 
   switch (a.type) {
-  case 'COUNTER_INCR':
-    return copyWith(s, s => s.count += 1);
-  case 'COUNTER_DECR':
-    return copyWith(s, s => s.count -= 1);
+  case A.Kind.CounterIncr:
+    return U.copyWith(s, s => s.count += 1);
+  case A.Kind.CounterDecr:
+    return U.copyWith(s, s => s.count -= 1);
   default:
     return s;
   }
@@ -19,20 +19,18 @@ function reduceNav(s: S.NavState, a: A.Action) {
   s = s || S.defaultNavState;
 
   switch (a.type) {
-  case 'NAV_PUSH':
-    return copyWith(s, s => {
+  case A.Kind.NavPush:
+    return U.copyWith(s, s => {
       s.index += 1;
-      s.routes = s.routes.slice();
-      s.routes.push(copyWith(S.defaultPage, p => {
+      s.routes = U.Arrays.push(s.routes, U.copyWith(S.defaultPage, p => {
         p.key = p.title = `Page${s.index}`;
       }));
     });
-  case 'NAV_POP':
+  case A.Kind.NavPop:
     if (s.index > 0) {
-      return copyWith(s, s => {
+      return U.copyWith(s, s => {
         s.index -= 1;
-        s.routes = s.routes.slice();
-        s.routes.pop();
+        s.routes = U.Arrays.pop(s.routes)[0];
       });
     } else {
       return s;
@@ -44,7 +42,7 @@ function reduceNav(s: S.NavState, a: A.Action) {
 
 function reduceTop(s: S.State, a: A.Action) {
   switch (a.type) {
-  case 'SET_LANGUAGE':
+  case A.Kind.SetLanguage:
     let s1 = S.State2Lang.setL(s, a.lang);
     if (s !== s1) {
       s1 = touchRoutes(s1);
@@ -55,8 +53,8 @@ function reduceTop(s: S.State, a: A.Action) {
   }
 }
 
-const State2Routes = Lens.compose(S.State2Nav, S.Nav2Routes);
-const State2LastRoute = Lens.compose(State2Routes, Lens.last<S.Page>());
+const State2Routes = U.Lens.compose(S.State2Nav, S.Nav2Routes);
+const State2LastRoute = U.Lens.compose(State2Routes, U.Lens.last<S.Page>());
 
 interface HasVersion {
   __refreshVersion__?: number;
@@ -69,16 +67,16 @@ function touch<A extends Object>(x0: A): A {
   return x as any;
 }
 
-const touchRoutes = Lens.modify(State2Routes, (xs: S.Page[]) => {
+const touchRoutes = U.Lens.modify(State2Routes, (xs: S.Page[]) => {
   return xs.map(x => touch(x));
 });
 
 // Manually composing the reducers can be repetitive.
 // Fortunately we can write some combinators to reduce the repetition.
 // (Are we over-engineering it?)
-export const reduce = Fold.withDefault(S.defaultState, Fold.sequence([
-  Fold.throughLens(S.State2Nav, reduceNav),
-  Fold.throughLens(State2LastRoute, reduceCounter),
+export const reduce = U.Fold.withDefault(S.defaultState, U.Fold.sequence([
+  U.Fold.throughLens(S.State2Nav, reduceNav),
+  U.Fold.throughLens(State2LastRoute, reduceCounter),
   reduceTop,
 ]));
 

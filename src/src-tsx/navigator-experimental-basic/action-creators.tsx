@@ -7,19 +7,19 @@ type TypedDispatch<A> = (a: A) => A;
 export function all(dispatch: TypedDispatch<A.Action>) {
   return {
     incr: () => {
-      dispatch({ type: 'COUNTER_INCR' });
+      dispatch({ type: A.Kind.CounterIncr });
     },
     decr: () => {
-      dispatch({ type: 'COUNTER_DECR' });
+      dispatch({ type: A.Kind.CounterDecr });
     },
     push: () => {
-      dispatch({ type: 'NAV_PUSH' });
+      dispatch({ type: A.Kind.NavPush });
     },
     pop: () => {
-      dispatch({ type: 'NAV_POP' });
+      dispatch({ type: A.Kind.NavPop });
     },
     useLanguage: (lang: S.Language) => {
-      dispatch({ type: 'SET_LANGUAGE', lang });
+      dispatch({ type: A.Kind.SetLanguage, lang });
     },
   };
 };
