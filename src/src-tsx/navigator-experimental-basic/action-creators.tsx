@@ -3,7 +3,8 @@ import * as S from './state';
 
 type TypedDispatch<A> = (a: A) => A;
 
-// What if we need to inject some of our states to the action creators?
+// Q: What if we need to inject some of our states to the action creators?
+// A: Use redux-thunk.
 export function all(dispatch: TypedDispatch<A.Action>) {
   return {
     incr: () => {

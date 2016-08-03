@@ -1,5 +1,7 @@
 import * as S from './state';
 
+// Still, a sane sum type support is much better than this ugly hack...
+
 export const enum Kind {
   CounterIncr,
   CounterDecr,

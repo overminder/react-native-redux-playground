@@ -12,7 +12,7 @@
   "dependencies": {
     "core-decorators": "0.12.2",
     "react": "~15.2.0",
-    "react-native": "~0.31.0-rc.0",
+    "react-native": "~0.31.0-rc.1",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0"

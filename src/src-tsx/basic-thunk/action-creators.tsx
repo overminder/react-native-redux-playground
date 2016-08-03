@@ -26,5 +26,5 @@ async function decrThunk(dispatch: PutAction, getState: GetState) {
 const incr = U.constant(incrThunk);
 const decr = U.constant(decrThunk);
 
-// TypeScript only accepts this instead of `import * as all from ...`.
+// NOTE: TypeScript treats this differently from `import * as all from ...`.
 export const all = { incr, decr };
