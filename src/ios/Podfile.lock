@@ -1,20 +1,22 @@
 PODS:
-  - React/Core (0.31.0-rc.0):
+  - react-native-webview-bridge (0.20.3)
+  - React/Core (0.32.0-rc.0):
     - React/CSSLayout
-  - React/CSSLayout (0.31.0-rc.0)
-  - React/RCTImage (0.31.0-rc.0):
+  - React/CSSLayout (0.32.0-rc.0)
+  - React/RCTImage (0.32.0-rc.0):
     - React/Core
     - React/RCTNetwork
-  - React/RCTLinkingIOS (0.31.0-rc.0):
+  - React/RCTLinkingIOS (0.32.0-rc.0):
     - React/Core
-  - React/RCTNetwork (0.31.0-rc.0):
+  - React/RCTNetwork (0.32.0-rc.0):
     - React/Core
-  - React/RCTText (0.31.0-rc.0):
+  - React/RCTText (0.32.0-rc.0):
     - React/Core
-  - React/RCTWebSocket (0.31.0-rc.0):
+  - React/RCTWebSocket (0.32.0-rc.0):
     - React/Core
 
 DEPENDENCIES:
+  - react-native-webview-bridge (from `../node_modules/react-native-webview-bridge/ios`)
   - React/Core (from `../node_modules/react-native`)
   - React/RCTImage (from `../node_modules/react-native`)
   - React/RCTLinkingIOS (from `../node_modules/react-native`)
@@ -25,10 +27,13 @@ DEPENDENCIES:
 EXTERNAL SOURCES:
   React:
     :path: ../node_modules/react-native
+  react-native-webview-bridge:
+    :path: ../node_modules/react-native-webview-bridge/ios
 
 SPEC CHECKSUMS:
-  React: 7c7fc492da9895da3c09b3dcf5d0e4d292757ae3
+  React: 33ff17511123380df9a4e11013d6865ae586373f
+  react-native-webview-bridge: 12f3501adcf002304bad0cfcbae8e738239d0a43
 
-PODFILE CHECKSUM: 0e62ad59a531697f2c425c2ca83be21d3eef9b6a
+PODFILE CHECKSUM: 38c4a6e4b3002a3199524cc8a741da3c4b046c92
 
 COCOAPODS: 1.0.1

@@ -57,5 +57,7 @@ export declare namespace NE {
   export const CardStack: ComponentClass<CardStackProps>;
   export const Header: ComponentClass<HeaderProps> & {
     BackButton: ComponentClass<{ onPress: () => void }>;
+    Title: ComponentClass<{ children?: string }>;
+    HEIGHT: number;
   };
 }

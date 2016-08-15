@@ -8,14 +8,26 @@ import {
   StyleSheet,
   TouchableOpacity,
   NavigationExperimental,
+
+  PixelRatio,
+  Platform,
 } from 'react-native';
 
 import * as M from './view-models';
 import { NE } from './navigation-experimental';
+import * as WV from '../webview-bug/simple';
 import stringsByLanguage from './strings';
 
 // Typing hack.
 const { CardStack, Header } = NavigationExperimental as any as typeof NE;
+
+export function renderWebViewScene() {
+  return (
+    <View style={{marginTop: Header.HEIGHT, flex: 1}}>
+      <WV.Simple />
+    </View>
+  );
+}
 
 // NOTE: This is much faster than the animated navigation container.
 export function AnimationlessMultipageCounter(mcPs: M.MultipageCounter) {
@@ -24,8 +36,8 @@ export function AnimationlessMultipageCounter(mcPs: M.MultipageCounter) {
 
   const route = nav.routes[nav.index];
 
-  function renderCounter() {
-    return (
+  function renderCounter(route: M.CounterPage) {
+    const scene = (
       <List>
         <LanguagePicker lang={lang} useLanguage={useLanguage} />
         <CounterWithLabeledButtons
@@ -37,15 +49,26 @@ export function AnimationlessMultipageCounter(mcPs: M.MultipageCounter) {
         />
       </List>
     );
+    return (
+      <View style={styles.scene} key={route.key}>
+        {scene}
+      </View>
+    );
+  }
+
+  function renderScenes() {
+    return <View style={styles.flex}>{nav.routes.map(renderCounter)}</View>;
   }
 
   function renderOverlay() {
     return (
-      <Row>
+      <View style={styles.appBar}>
         {renderBackButton()}
-        {centeredText(route.title)}
+        <View style={styles.appBarTitle}>
+          <Header.Title>{route.title}</Header.Title>
+        </View>
         {renderRightButton()}
-      </Row>
+      </View>
     );
   }
 
@@ -53,13 +76,17 @@ export function AnimationlessMultipageCounter(mcPs: M.MultipageCounter) {
     if (nav.index === 0) {
       return null;
     } else {
-      return <Header.BackButton onPress={pop} />;
+      return (
+        <View style={styles.appBarLeft}>
+          <Header.BackButton onPress={pop} />
+        </View>
+      );
     }
   }
 
   function renderRightButton() {
     return (
-      <TouchableOpacity onPress={push} style={styles.center}>
+      <TouchableOpacity onPress={push} style={[styles.center, styles.appBarRight]}>
         <View style={styles.navRightButton}>
           <Text>Next</Text>
         </View>
@@ -68,10 +95,10 @@ export function AnimationlessMultipageCounter(mcPs: M.MultipageCounter) {
   }
 
   return (
-    <List>
+    <View style={styles.flex}>
+      {renderScenes()}
       {renderOverlay()}
-      {renderCounter()}
-    </List>
+    </View>
   );
 }
 
@@ -86,7 +113,6 @@ export function MultipageCounter(mcPs: M.MultipageCounter) {
 
     // if (tps.scene.isActive) {
     // ^ Can't do the checking since isActive is not `watched` by NavigationExperimental in
-    // CardStack.renderScene.
 
     const route = tps.scene.route as M.CounterPage;
     return (
@@ -217,7 +243,14 @@ export function AsyncCounterWithButtons(ps: M.AsyncCounterWithButtons) {
   );
 }
 
+const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
+const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
+const HEADER_HEIGHT = APPBAR_HEIGHT + STATUSBAR_HEIGHT;
+
 const styles = StyleSheet.create({
+  flex: {
+    flex: 1,
+  },
   row: {
     flex: 1,
     justifyContent: 'center' as 'center',
@@ -242,5 +275,56 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: 'center' as 'center',
     alignItems: 'center' as 'center',
+  },
+  appBar: {
+    alignItems: 'center' as any,
+    backgroundColor: Platform.OS === 'ios' ? '#EFEFF2' : '#FFF',
+    borderBottomColor: 'rgba(0, 0, 0, .15)',
+    borderBottomWidth: Platform.OS === 'ios' ? (1 / PixelRatio.get()) : 0,
+    elevation: 4,
+    flexDirection: 'row' as any,
+    height: APPBAR_HEIGHT + STATUSBAR_HEIGHT,
+    justifyContent: 'flex-start' as any,
+    left: 0,
+    marginBottom: 16, // This is needed for elevation shadow
+    position: 'absolute' as any,
+    right: 0,
+    top: 0,
+  },
+  appBarTitle: {
+    bottom: 0,
+    left: APPBAR_HEIGHT,
+    marginTop: STATUSBAR_HEIGHT,
+    position: 'absolute' as any,
+    right: APPBAR_HEIGHT,
+    top: 0,
+  },
+  appBarLeft: {
+    bottom: 0,
+    left: 0,
+    marginTop: STATUSBAR_HEIGHT,
+    position: 'absolute' as any,
+    top: 0,
+  },
+  appBarRight: {
+    bottom: 0,
+    marginTop: STATUSBAR_HEIGHT,
+    position: 'absolute' as any,
+    right: 0,
+    top: 0,
+  },
+  scene: {
+    /* Any of below (any decoration?) causes WebView on Android to lose its height.
+    shadowColor: 'black',
+    shadowOffset: {width: 0, height: 0},
+    shadowOpacity: 0.4,
+    shadowRadius: 10,
+    backgroundColor: '#E9E9EF',
+    */
+    bottom: 0,
+    left: 0,
+    position: 'absolute' as any,
+    right: 0,
+    top: HEADER_HEIGHT,
   },
 });

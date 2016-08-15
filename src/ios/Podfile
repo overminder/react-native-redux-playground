@@ -19,4 +19,6 @@ abstract_target 'defaults' do
     'RCTWebSocket',
     'RCTLinkingIOS',
   ]
+
+  pod 'react-native-webview-bridge', :path => '../node_modules/react-native-webview-bridge/ios'
 end

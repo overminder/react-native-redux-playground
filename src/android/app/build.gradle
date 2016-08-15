@@ -23,4 +23,5 @@ dependencies {
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.facebook.react:react-native:0.31.+"
+    compile project(path: ":react-native-webview-bridge")
 }
