@@ -161,7 +161,7 @@ export function MultipageCounter(mcPs: M.MultipageCounter) {
       onNavigateBack={pop}
       navigationState={nav}
       renderScene={renderCounter}
-      renderOverlay={renderOverlay}
+      renderHeader={renderOverlay}
     />
   );
 }

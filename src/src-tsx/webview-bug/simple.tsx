@@ -2,10 +2,14 @@ import * as React from 'react';
 import {
   View,
   NavigationExperimental,
+  WebView,
 } from 'react-native';
 import {
   WebViewBridge,
 } from 'react-native-webview-bridge';
+
+WebView;
+WebViewBridge;
 
 import { NE } from 'app/support/navigation-experimental';
 
@@ -53,7 +57,7 @@ kSampleHtml;
 
 export function Simple() {
   return (
-    <WebViewBridge
+    <WebView
       source={{uri: kSampleUri}}
       style={{flex: 1}}
       javaScriptEnabled={true}

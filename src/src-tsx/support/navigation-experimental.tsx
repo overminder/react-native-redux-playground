@@ -33,7 +33,7 @@ export declare namespace NE {
     direction?: 'horizontal' | 'vertical';
     navigationState: State;
     onNavigateBack?: () => void;
-    renderOverlay?: SceneRenderer;
+    renderHeader?: SceneRenderer;
     renderScene: SceneRenderer;
     cardStyle?: ViewStyle;
     style?: ViewStyle;
