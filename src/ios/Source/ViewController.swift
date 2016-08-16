@@ -11,7 +11,7 @@ class ReactView: UIView {
         } else {
             host = "192.168.2.1"
         }
-        let url = NSURL(string: "http://\(host):8081/index.ios.bundle?platform=ios")
+        let url = NSURL(string: "http://\(host):8081/index.ios.bundle?platform=ios&dev=true")
         return RCTRootView(bundleURL: url,
                            moduleName: "Example",
                            initialProperties: nil,
